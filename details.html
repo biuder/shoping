@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta content="email=no" name="format-detection"/>
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1,user-scalable=no">
+    <script>document.documentElement.style.fontSize = document.documentElement.clientWidth / 10.8 + 'px';</script>
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="css/public.css">
+    <title></title>
+</head>
+<body>
+<input id="price" type="hidden" value="1"/>
+<input id="periodNumber" type="hidden" value="121512155"/>
+<input id="goodsId" type="hidden" value="11111111111"/>
+
+<div class="wrapper f3f3f3">
+    <div class="details_banner">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="./img/01.jpg"></div>
+                <div class="swiper-slide"><img src="./img/02.jpg"></div>
+                <div class="swiper-slide"><img src="./img/03.jpg"></div>
+                <div class="swiper-slide"><img src="./img/01.jpg"></div>
+                <div class="swiper-slide"><img src="./img/02.jpg"></div>
+                <div class="swiper-slide"><img src="./img/03.jpg"></div>
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
+
+        </div>
+    </div>
+    <div class="details_title">
+        <h1>RestOn睡眠检测器</h1>
+        <p>监测实时心率、呼吸，让每一次心跳和呼吸都看得见</p>
+    </div>
+    <div class="details_footer iconfont ">
+        <div class="bar_par">
+            <span>总需4000人次</span><span style="float: right">剩余<b class="fontColor1">1000</b></span>
+            <div class="bar"><div class="bar_ch" style="width: 30%"></div></div>
+            <span>期号：100254</span>
+        </div>
+        <div class="details_duobao">
+
+            <div class="details_duobao_luck off">
+                <div class="details_duobao_tips"></div>
+                <div class="details_duobao_luck_ch ">
+                    <i class="iconfont">&#xe60b;</i>
+                    <p>获奖者：13525155282</p>
+                    <p>期号：2021512</p>
+                    <p>本期参与：123人次</p>
+                    <p>揭晓时间：2016-5-01 15:54:23</p>
+                    <span>中奖号码：151231512</span>
+                </div>
+            </div>
+            <h2><p>期号：100254</p><p>即将开奖，请耐心等待...</p></h2>
+            <h3 class="">您尚未参与本次夺宝</h3>
+            <div class="f3f3f3 overflow off">
+                <p class="overflow"><span>您参与了：</span><span>5人次</span></p>
+                <p><span>夺宝号码：</span><span>151215</span><span>151215</span><span>151215</span><span>151215</span><span>151215</span><span>151215</span><span>151215</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="duobao_act">
+        <a href="historyRecord.html">往期记录</a>
+        <a href="partRecord.html">参与记录</a>
+    </div>
+    <div class="duobao_pic">
+        <img src="img/01.jpg" alt="">
+        <img src="img/02.jpg" alt="">
+        <img src="img/03.jpg" alt="">
+    </div>
+</div>
+<div class="duobao_btn_wrp" ><button  @click="verifyGooodsNum()">立即夺宝</button></div>
+<!--<div class="duobao_btn_wrp next_btn_wrp off" ><span>等待创建下一期...</span><a href="">立即前往</a></div>-->
+<!--------------------------------------------------------购买流程-------------------------------------------------------------------------->
+<div class="popup" v-show="popupShow" transition="expand">
+    <!--选择购买数量-->
+    <div style="background-color: #eeeeee">
+    <div class="purchase_num paddingBottom" v-show="numShow" transition="expand">
+        <h3>奖券购买数目</h3>
+        <div><i @click="reduction">&#xe60d;</i><input type="tel" v-model="goodsNumber" id="goodsNumber"><i @click="add">&#xe60c;</i></div>
+        <ul id="addingBtn">
+            <li @click="goodsNumber=5,isGoodsNum()">5</li>
+            <li @click="goodsNumber=10,isGoodsNum()">10</li>
+            <li @click="goodsNumber=15,isGoodsNum()">15</li>
+            <li @click="goodsNumber=20,isGoodsNum()">20</li>
+        </ul>
+        <span>共<b class="fontColorDA3651">{{goodsNumber}}张奖卷</b>，您将享有<b class="fontColorDA3651" >{{goodsNumber}}倍概率</b></span>
+    </div>
+    </div>
+
+    <!--收货地址-->
+    <div class="purchase_suc paddingBottom" v-show="fShow" transition="expand">
+        <div @click="fShow=false,numShow=true"><i>&#xe618;</i></div>
+        <ul>
+            <li><span>收货地址</span><span v-if="defaultaddressCity" v-text="defaultaddressCity.province+defaultaddressCity.city+defaultaddressCity.district+defaultaddressCity.detailAddr"></span><span v-if="!defaultaddressCity">暂无</span><i @click="addressList()">&#xe603;</i></li>
+            <li><span>优惠活动</span><span v-if="isDefaultShow" v-text="couponName"></span><span v-else>未达到购买次数</span><i @click="fShow=false,ressShow=true">&#xe603;</i></li>
+            <!--<li><span>支付方式</span><span>支付宝</span></li>-->
+            <li><span>应付金额</span><div>{{moneyNumber}}元</div><div>商品金额{{goodsNumber}}元，优惠金额{{defaultNum}}元</div></li>
+        </ul>
+    </div>
+
+    <!--收货地址管理-->
+<div style="background-color: #eeeeee">
+    <div class="purchase_site paddingBottom" v-show="siteShow" transition="expand">
+        <div class="title_div">收货地址 <i @click="siteShow=false,fShow=true">&#xe605;</i></div>
+        <ul>
+            <li v-for="site in addressListArr">
+                <span>
+                    <span>{{site.personalName}}</span>
+                    <span class="purchase_avtive" v-if="site.addressType==0">[默认]</span>
+                    <b v-text="site.personalPhone"></b>
+                </span>
+                <span v-text="site.province+site.city+site.district+site.detailAddr"></span>
+                <span>
+                    <i @click="choose($index)">
+                        <i class="fontColorDA3651" v-if="siteIndex==$index">
+                            <b style="color: #DA3651">选中</b>&#xe607;
+                        </i>
+                        <i v-else><b>选择</b>&#xe60e;</i>
+                    </i>
+                    <i @click="delShow(site)">&#xe606;<b>删除</b></i>
+                    <i @click="addShow=true,siteShow=false">&#xe600;
+                        <b @click="editorDefaultaddress($index)">编辑</b>
+                    </i>
+                </span>
+            </li>
+        </ul>
+        <div class="title_div purchase_adder" @click="addAddress()">添加新地址<i>&#xe604;</i></div>
+    </div>
+</div>
+
+    <!--编辑地址-->
+    <div class="purchase_add paddingBottom" v-show="addShow" transition="expand">
+        <div style="border-bottom: 1px solid #999999" class="title_div">{{addressTitle}}<i @click="addShow=false,siteShow=true">&#xe605;</i></div>
+        <ul>
+            <li ><label>收货人</label><input type="text" v-model="addressVlu.personalName"></li>
+            <li ><label>联系电话</label><input type="tel" v-model="addressVlu.personalPhone"></li>
+            <li ><label>所在地区</label><div @click="cityPopShow()" v-text="address"></div><input type="hidden"></li>
+            <li ><label>街道</label><input type="text" v-model="addressVlu.detailAddr "></li>
+            <li><span class="fontSize42">设为默认地址</span><i v-if="addressType" class="fontColorDA3651">&#xe607;</i><i v-else @click="isStatus()">&#xe60e;</i></li>
+        </ul>
+    </div>
+
+    <!--优惠活动-->
+    <div class="purchase_ress paddingBottom" v-show="ressShow" transition="expand">
+        <div style="border-bottom: 1px solid #999999" class="title_div">优惠活动 <i @click="ressShow=false,fShow=true">&#xe605;</i></div>
+        <span>
+            <h3>活动说明</h3>
+            <p v-text="description"></p>
+        </span>
+    </div>
+
+</div>
+<button class="popup-button" @click="defaultaddress()" v-show="numShow">确认</button>
+<button class="popup-button" @click="paymentSave()" v-show="fShow">确认支付</button>
+<button class="popup-button" @click="fShow=true,siteShow=false" v-show="siteShow">确认</button>
+<button class="popup-button" @click="addressSave()" v-show="addShow">保存</button>
+<div class="pop_pos pa" style="display:none">
+    <h3>选择省市</h3>
+    <ul class="mui-table-view">
+    </ul>
+</div>
+<div class="mui-backdrop mui-active mui-mack" style="display:none"></div>
+
+<div class="mack" v-show="mackShow" @click="mackShow=false,popupShow=false,numShow=false,initShow()"></div>
+<div class="mui-backdrop mui-active" v-show="errorShow"></div>
+
+<div class="delTips" v-show="errorShow" transition="fadeInUp">
+    <h3>你确定要删除吗？</h3>
+    <div><span @click="errorShow = false">取消</span><span class="fontColorDA3651" @click="del()">确定</span></div>
+</div>
+<script type="text/template" id="error-template">
+    <div class="delTips errorTips" v-show="show" transition="fadeInUp">
+        <slot name="errTips"></slot>
+    </div>
+</script>
+<modal :show.sync="errorTipsShow">
+    <i slot="errTips">&#xe616;</i>
+    <p slot="errTips" v-text="errorTipsContent"></p>
+</modal>
+<script src="js/jquery-v1.10.2.min.js"></script>
+<script src="js/mock.js"></script>
+<script src="js/json.js"></script>
+<script src="js/vue.min.js"></script>
+<script src="js/swiper.jquery.min.js"></script>
+<script src="js/details.js"></script>
+<script src="http://mkt.lenovomm.com/lenovo-mall/js/mui.min.js?v=1.2"></script>
+<script src="http://mkt.lenovomm.com/lenovo-mall/js/city.js"></script>
+</body>
+</html>
