@@ -32,7 +32,7 @@ Mock.mock('http://vbtest.lenovomm.cn/mall/yydb_ajax.xhtml?c=getInitTags', {
         }
     ]
 });
-Mock.mock('http://10.100.156.173:8080/newstat/yydb_main.xhtml?c=showByRenQi', {
+Mock.mock('http://vbtest.lenovomm.cn/mall/yydb_main.xhtml?c=showByRenQi', {
         body: [
             {
                 "goodsId": "2070a78783cb4f31a0d7561140cf3dc6",
@@ -88,7 +88,7 @@ Mock.mock('http://10.100.156.173:8080/newstat/yydb_main.xhtml?c=showByRenQi', {
     "code":0
 }
 );
-Mock.mock('http://10.100.156.173:8080/newstat/yydb_main.xhtml?c=showByTime', {
+Mock.mock('http://vbtest.lenovomm.cn/mall/yydb_main.xhtml?c=showByTime', {
         body: [
             {
                 "goodsId": "2070a78783cb4f31a0d7561140cf3dc6",
@@ -145,7 +145,7 @@ Mock.mock('http://10.100.156.173:8080/newstat/yydb_main.xhtml?c=showByTime', {
     "code":0
     }
 );
-Mock.mock('http://10.100.156.173:8080/newstat/yydb_main.xhtml?c=showAwardUser', {
+Mock.mock('http://vbtest.lenovomm.cn/mall/yydb_main.xhtml?c=showAwardUser', {
     "body": [
         {
             "goodsName": "iphone 6s plus",
@@ -176,7 +176,7 @@ Mock.mock('http://vbtest.lenovomm.cn/mall/yydb_ajax.xhtml?c=queryGoodsQuantity&p
 });
 Mock.mock('http://vbtest.lenovomm.cn/mall/yydb_ajax.xhtml?c=queryUserDefaultAddress', {
     "body": {
-        
+
         "coupon": [
             {
                 "beginTime": 1464105600000,
@@ -265,6 +265,9 @@ Mock.mock('http://vbtest.lenovomm.cn/mall/yydb_ajax.xhtml?c=updateSave', {
 })
 Mock.mock('http://vbtest.lenovomm.cn/mall/yydb_ajax.xhtml?c=deleteUserAddress', {
     "code":0
+})
+Mock.mock('http://vbtest.lenovomm.cn/mall/activity.xhtml', {
+    "code": 3
 })
 Mock.mock('http://vbtest.lenovomm.cn/mall/yydb_cart.xhtml?c=queryOrderStatus&orderId=Y1606021350087267438', {
     "body": {

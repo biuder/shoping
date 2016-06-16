@@ -81,7 +81,8 @@
     <div style="background-color: #eeeeee">
     <div class="purchase_num paddingBottom" v-show="numShow" transition="expand">
         <h3>奖券购买数目</h3>
-        <div><i @click="reduction">&#xe60d;</i><input type="tel" v-model="goodsNumber" id="goodsNumber"><i @click="add">&#xe60c;</i></div>
+        <div><i @click="reduction">&#xe60d;</i><input type="tel" v-model="goodsNumber" id="goodsNumber"><i @click="add">
+            &#xe60c;</i></div>
         <ul id="addingBtn">
             <li @click="goodsNumber=5,isGoodsNum()">5</li>
             <li @click="goodsNumber=10,isGoodsNum()">10</li>
@@ -96,8 +97,12 @@
     <div class="purchase_suc paddingBottom" v-show="fShow" transition="expand">
         <div @click="fShow=false,numShow=true"><i>&#xe618;</i></div>
         <ul>
-            <li><span>收货地址</span><span v-if="defaultaddressCity" v-text="defaultaddressCity.province+defaultaddressCity.city+defaultaddressCity.district+defaultaddressCity.detailAddr"></span><span v-if="!defaultaddressCity">暂无</span><i @click="addressList()">&#xe603;</i></li>
-            <li><span>优惠活动</span><span v-if="isDefaultShow" v-text="couponName"></span><span v-else>未达到购买次数</span><i @click="fShow=false,ressShow=true">&#xe603;</i></li>
+            <li @click="addressList()"><span>收货地址</span><span v-if="defaultaddressCity"
+                                                              v-text="defaultaddressCity.province+defaultaddressCity.city+defaultaddressCity.district+defaultaddressCity.detailAddr"></span><span
+                    v-if="!defaultaddressCity">暂无</span><i>&#xe603;</i></li>
+            <li @click="fShow=false,ressShow=true"><span>优惠活动</span><span v-if="isDefaultShow"
+                                                                          v-text="couponName"></span><span v-else>未达到购买次数</span><i>
+                &#xe603;</i></li>
             <!--<li><span>支付方式</span><span>支付宝</span></li>-->
             <li><span>应付金额</span><div>{{moneyNumber}}元</div><div>商品金额{{goodsNumber}}元，优惠金额{{defaultNum}}元</div></li>
         </ul>
@@ -106,7 +111,7 @@
     <!--收货地址管理-->
 <div style="background-color: #eeeeee">
     <div class="purchase_site paddingBottom" v-show="siteShow" transition="expand">
-        <div class="title_div">收货地址 <i @click="siteShow=false,fShow=true">&#xe605;</i></div>
+        <div @click="siteShow=false,fShow=true" class="title_div">收货地址 <i>&#xe605;</i></div>
         <ul>
             <li v-for="site in addressListArr">
                 <span>
@@ -117,15 +122,13 @@
                 <span v-text="site.province+site.city+site.district+site.detailAddr"></span>
                 <span>
                     <i @click="choose($index)">
-                        <i class="fontColorDA3651" v-if="siteIndex==$index">
+                        <i class="fontColorDA3651" v-if="siteIndex===$index">
                             <b style="color: #DA3651">选中</b>&#xe607;
                         </i>
                         <i v-else><b>选择</b>&#xe60e;</i>
                     </i>
                     <i @click="delShow(site)">&#xe606;<b>删除</b></i>
-                    <i @click="addShow=true,siteShow=false">&#xe600;
-                        <b @click="editorDefaultaddress($index)">编辑</b>
-                    </i>
+                    <i @click="addShow=true,siteShow=false">&#xe600;<b @click="editorDefaultaddress($index)">编辑</b></i>
                 </span>
             </li>
         </ul>
@@ -135,7 +138,8 @@
 
     <!--编辑地址-->
     <div class="purchase_add paddingBottom" v-show="addShow" transition="expand">
-        <div style="border-bottom: 1px solid #999999" class="title_div">{{addressTitle}}<i @click="addShow=false,siteShow=true">&#xe605;</i></div>
+        <div @click="addShow=false,siteShow=true" style="border-bottom: 1px solid #999999" class="title_div">
+            {{addressTitle}}<i>&#xe605;</i></div>
         <ul>
             <li ><label>收货人</label><input type="text" v-model="addressVlu.personalName"></li>
             <li ><label>联系电话</label><input type="tel" v-model="addressVlu.personalPhone"></li>
@@ -147,7 +151,8 @@
 
     <!--优惠活动-->
     <div class="purchase_ress paddingBottom" v-show="ressShow" transition="expand">
-        <div style="border-bottom: 1px solid #999999" class="title_div">优惠活动 <i @click="ressShow=false,fShow=true">&#xe605;</i></div>
+        <div @click="ressShow=false,fShow=true" style="border-bottom: 1px solid #999999" class="title_div">优惠活动 <i>
+            &#xe605;</i></div>
         <span>
             <h3>活动说明</h3>
             <p v-text="description"></p>
@@ -182,6 +187,7 @@
     <i slot="errTips">&#xe616;</i>
     <p slot="errTips" v-text="errorTipsContent"></p>
 </modal>
+<!--<script src="dist/js/page/bundle.js"></script>-->
 <script src="js/jquery-v1.10.2.min.js"></script>
 <script src="js/mock.js"></script>
 <script src="js/json.js"></script>

@@ -1,13 +1,14 @@
 (function () {
     var ScreenPage = function () {
-        this.httpHeader = 'http://vbtest.lenovomm.cn/mall/yydb_main.xhtml'
+        this.httpHeader = 'yydb_main.xhtml'
     };
     ScreenPage.prototype = {
         init: function () {
             this.initNewsListDatas();
             this.initGoodsListDatas();
             this.tabs();
-            this.bannerWipre()
+            this.bannerWipre();
+            this.isNewUser();
         },
         bannerWipre: function () {
                 screen_banner = new Swiper('.screen_banner .swiper-container', {
@@ -34,6 +35,19 @@
                 loop: true,
                 auto:2000
             });
+        },
+        isNewUser: function () {
+            var userCookie = $('#userCookie').val();
+            $('#screen_rule').on('click', function () {
+                $('.mack').removeClass('off');
+            });
+            $('.close_btn').on('click', function () {
+                $('.mack').addClass('off');
+            });
+            if (userCookie != localStorage.getItem('userCookie')) {
+                $('.mack').removeClass('off');
+                localStorage.setItem('userCookie', userCookie);
+            }
         },
         tabs: function () {
             var self = this;
@@ -83,11 +97,10 @@
             }
         },
         goDetails:function (th) {
-         
                 var goodsId=th.attr('data-goodsId');
 				var periodNumber=th.attr('data-periodNumber');
                 var st=$("#st").val();
-                location.href='http://vbtest.lenovomm.cn/mall/yydb_record.xhtml?c=showDetail&goodsId='+goodsId+'&periodNumber='+periodNumber+'&st='+st;
+            location.href = this.httpHeader + '?c=showDetail&goodsId=' + goodsId + '&periodNumber=' + periodNumber + '&st=' + st;
 
         },
         initNewsListDatas:function () {

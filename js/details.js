@@ -25,7 +25,7 @@
             couponName: '',         //优惠券名称
             description: '',        //优惠券描述
             moneyNumber: 0,         //应付金额
-            siteIndex: 0,           //地址数组索引
+            siteIndex: '',           //地址数组索引
             inventory: 0,           //库存
             defaultaddressCity: {}, //默认地址
             coupon: [],             //优惠券
@@ -44,6 +44,10 @@
             isError:false
         },
         methods: {
+            init: function () {
+                this.swipre();
+                this.isNumber();
+            },
             swipre: function () {
                 var details_banner = new Swiper('.details_banner .swiper-container', {
                     direction: 'horizontal',
@@ -84,6 +88,21 @@
                 this.delSiteIndex = site;
                 console.log(this.errorShow)
 
+            },
+            isNumber: function () {
+                var th = this;
+                $('#goodsNumber').on('keyup', function () {
+                    var c = $(this);
+                    if (/[^\d]/.test(c.val())) {//替换非数字字符
+                        th.goodsNumber = c.val().replace(/[^\d]/g, '');
+                    }
+                    if (c.val() > th.inventory) {
+                        th.goodsNumber = th.inventory;
+                    }
+                    if (c.val() < 1) {
+                        th.goodsNumber = 1;
+                    }
+                })
             },
             choose: function (index) {
                 this.siteIndex = index;
@@ -155,7 +174,7 @@
                         this.description = this.coupon[0].description;
                     }
                 } else {
-
+                    this.errTips(datas.message)
                 }
             },
             addressList: function () {
@@ -174,7 +193,7 @@
             editorDefaultaddress: function (index) {
                 this.siteIndex = index;
                 this.addressTitle = '修改地址';
-                this.addressType = this.addressListArr[index].addressType == 0 ? true : false;
+                this.addressType = this.addressListArr[index].addressType == 0;
                 this.addressVlu = this.addressListArr[index];
                 var province = this.addressListArr[index].province;
                 var city = this.addressListArr[index].city;
@@ -397,5 +416,5 @@
             }
         }
     });
-    myVue.swipre();
+    myVue.init();
 })();

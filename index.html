@@ -11,6 +11,7 @@
     <title>一元夺宝</title>
 </head>
 <body>
+<input type="hidden" value="1" id="userCookie">
 <div class="wrapper">
     <div class="screen_banner">
         <div class="swiper-container">
@@ -24,6 +25,15 @@
 
         </div>
     </div>
+
+
+    <div class="screen_menu">
+        <a href="">我的订单</a>
+        <a></a>
+        <a href="javascript:;" id="screen_rule">活动规则</a>
+    </div>
+
+
     <div class="screen_news">
         <div class="swiper-container">
             <div class="swiper-wrapper" id="newsList">
@@ -32,7 +42,7 @@
     </div>
     <div class="screen_wap">
         <ul class="overflow tabs">
-            <li  data-ajaxUrl="?c=showByRenQi"><span class="active">人气</span></li>
+            <li data-ajaxUrl="?c=showByRenQi"><span class="active">人气</span></li>
             <li data-ajaxUrl="?c=showByTime"><span>最新</span></li>
             <li data-ajaxUrl="?c=showByRate"><span>进度</span></li>
             <li data-ajaxUrl="?c=showByPrize"><span>高中奖率</span></li>
@@ -43,8 +53,12 @@
         </div>
     </div>
 </div>
-
-
+<div class="mack off">
+    <div class="popup_rule">
+        <span class="close_btn"></span>
+        <img src="img/rule.png" alt="">
+    </div>
+</div>
 <script src="js/jquery-v1.10.2.min.js"></script>
 <script src="js/mock.js"></script>
 <script src="js/json.js"></script>

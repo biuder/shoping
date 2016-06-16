@@ -66,7 +66,8 @@
             overflow: hidden;
             color: #666666;
         }
-        .tabs span{
+
+        .tabs a {
             display: block;
             float: left;
             width: 33%;
@@ -92,10 +93,13 @@
             margin: -.2rem .16rem  0 0;
             float: left;
         }
-        .user_list li h2{
+
+        .user_list li h2 {
             font-size: .36rem;
             color: #333333;
-            margin: .4rem 0 .56rem;
+            margin-top: .3rem;
+            height: 1.1rem;
+            overflow: hidden;
         }
         .user_list li p{
             font-size: .32rem;
@@ -164,21 +168,31 @@
 
 <body>
     <div class="wrapper">
-        <div class="tabs"><span class="fontcolorda3651">全部</span><span>进行中</span><span>已揭晓</span></div>
+        <div class="tabs"><a href="">全部</a><a href="">进行中</a><a href="">已揭晓</a></div>
         <ul class="user_list">
             <li><div><img src="img/sj.png" alt=""><h2>RestOn智能睡眠监测器K100259</h2><p>期号：10025255</p><p>我已参与：<b class="fontcolorda3651">5</b>人次<a href="" class="details">查看详情</a></p></div><div class="footer"><p class="fontcolorda3651">即将开奖，正在计算，请稍后...</p><a class="btn2">再次购买</a></div></li>
             <li><div><img src="img/sj.png" alt=""><h2>RestOn智能睡眠监测器K100259</h2><p>期号：10025255</p><p>我已参与：<b class="fontcolorda3651">5</b>人次<a href="" class="details">查看详情</a></p></div><div class="footer"><div class="bar_par">
                 <span>总需4000人次</span><span style="float: right">剩余<b>1000</b></span>
                 <div class="bar"><div class="bar_ch" style="width: 30%"></div></div>
             </div><a class="btn1  ">追加</a></div></li>
-            <li><div><img src="img/sj.png" alt=""><h2>RestOn智能睡眠监测器K100259</h2><p>期号：10025255</p><p>我已参与：<b class="fontcolorda3651">5</b>人次<a href="" class="details">查看详情</a></p></div><div class="footer"><p>获奖者：<b class="fontcolor0b7cd9">人生在于</b><i><b class="fontcolorda3651">567</b>人次</i></p><a class="btn2">再次购买</a></div></li>
+            <li>
+                <div><img src="img/sj.png" alt="">
+                    <h2>RestOn智能睡眠监测器K100259RestOn智能睡眠监测器K100259RestOn智能睡眠监测器K100259</h2>
+                    <p>期号：10025255</p>
+                    <p>我已参与：<b class="fontcolorda3651">5</b>人次<a href="" class="details">查看详情</a></p></div>
+                <div class="footer"><p>获奖者：<b class="fontcolor0b7cd9">人生在于</b><i><b
+                        class="fontcolorda3651">567</b>人次</i></p><a class="btn2">再次购买</a></div>
+            </li>
         </ul>
     </div>
 <script src="js/jquery-v1.10.2.min.js"></script>
 <script>
     (function () {
-        $('.tabs').on('click','span',function () {
-            $(this).addClass('fontcolorda3651').siblings().removeClass('fontcolorda3651')
+        //localStorage.setItem('type',0);
+        var type = sessionStorage.getItem('type');
+        $('.tabs').find('a').eq(type).addClass('fontcolorda3651');
+        $('.tabs').on('click', 'a', function () {
+            sessionStorage.setItem('type', $(this).index());
         })
     })()
 </script>
